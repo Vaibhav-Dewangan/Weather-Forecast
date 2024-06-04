@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Get accurate and up-to-date weather forecasts with Weather 4cast. Check local conditions and 5-day forecasts. ">
+    <title>Weather Forecast</title>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+    <link rel="stylesheet" href="./output.css">
+    <script src="./script.js" defer></script>
+    <script src="https://kit.fontawesome.com/4d9495227a.js" crossorigin="anonymous"></script>
+</head>
+<body class="bg-cover bg-center bg-no-repeat bg-fixed m-0 " style="background: linear-gradient(to top, #134280 0%, #537895 100%);" >
+    <header class="max-sm:h-8 header  max-sm:ml-5 max-sm:mt-5 max-sm:mr-5 ml-14 mr-14 bg-headerbg rounded-full h-10 mt-10  p-9 flex flex-row justify-between items-center ">
+        <img src="./images/weather cast (5).png" alt="logo" class="max-sm:w-36  headerlogo w-52 max-lg:w-48 ">
+        <div class="flex justify-evenly items-center">
+            <button id="locateMe" class="flex justify-center hover:scale-105 items-center max-sm:w-10 bg-white h-6 w-28 p-1  box-content text-xs active:scale-95 rounded-full max-sm:bg-headerbg "><p class="max-sm:hidden">Locate me</p> &nbsp; <i class="fa-solid fa-location-dot max-sm:text-white max-sm:text-xl "></i></button>
+            <p class="lg:hidden">&nbsp;&nbsp;</p>
+            <a href="#cityName"><button id="locateSearchBtn" class="flex justify-center hover:scale-105 items-center max-lg:w-10 bg-white h-6 w-28 p-1 lg:hidden  box-content text-xs active:scale-95 rounded-full max-sm:bg-headerbg " ><i class="fa-solid fa-magnifying-glass max-sm:text-white max-sm:text-xl "></i></button></a>
+        </div>
+        </header>
+    <main class="flex flex-row max-lg:h-full max-xl:h-full max-lg:flex-col-reverse max-sm:m-7 m-14 mb-40 max-xl:m-14  justify-between max-xl:gap-8 font-sans text-white">
+        <article id="location" class="location  max-sm:mb-10 max-lg:h-fit max-sm:text-sm backdrop-blur-lg bg-white/10 w-96 max-xl:w-80 max-lg:w-full  h-128 p-12 rounded-xl max-lg:justify-center max-lg:flex  align-middle items-center">
+        <form id="formForInput" class="flex flex-col gap-5 max-lg:w-72 mt-14 max-sm:mt-5 max-lg:mt-5 ">
+            <label for="cityName" class="flex justify-center">Enter City Name</label>
+            <input type="text" placeholder="Eg : London, New York, India" id="cityName" name="location" required class=" text-black hover:scale-105 bg-slate-200 p-3 max-xl:p-2 max-xl:h-10 rounded-full">
+            <button type="button" id="searchBtn" class="max-xl:h-10 p-2 active:scale-95 bg-headerbg rounded-full text-white">Search &nbsp<i class="fa-solid fa-magnifying-glass text-sm"></i></button>
+            <p class="flex justify-center">OR</p>
+            <button type="button" id="autoSearchBtn" class="  max-xl:h-10 p-2 active:scale-95 bg-headerbg rounded-full text-white" >Use current location</button>
+        </form>
+        </article>
+        <article id="weatherForecast" class=" flex flex-col justify-between max-lg:h-fit max-sm:gap-5 max-lg:gap-10  h-128 w-60vw max-lg:w-full max-xl:w-60vw ">
+            <section id="todaysWeather" class="hover:scale-105 max-xl:text-base text-lg max-sm:text-base max-lg:text-xl  backdrop-blur-sm bg-white/10 max-lg:rounded-xl h-48 max-sm:h-64 p-6 rounded-t-xl flex justify-evenly align-middle items-center max-lg:flex-col max-lg:h-96">
+                    <p class="locationName font-bold "></p>
+                    <p class="date"></p>
+                    <img class="weather-icon" alt="weather-icon">
+                    <p class="temperature"></p>
+                    <p class="humidity"></p>
+                    <p class="wind"></p> 
+            </section>
+            <section id="next5DaysWeather" class="max-sm:text-sm max-sm:w-full  bg-transparent h-72 rounded-b-xl gap-2 max-xl:gap-1 flex flex-row justify-evenly max-md:overflow-auto text-sm max-sm:h-64 max-lg:h-96">
+                <div data-index="1" class="nextDays  max-sm:w-40  backdrop-blur-sm bg-white/10 w-full rounded-bl-xl p-6 flex flex-col items-center  justify-center">
+                    <p class="date"></p>
+                    <img class="weather-icon" alt="weather-icon">
+                    <p class="temp"></p>
+                    <p class="humidity"></p>
+                    <p class="wind"></p>
+                </div>
+                <div data-index="2" class="nextDays max-sm:w-40  backdrop-blur-sm bg-white/10 w-full  p-6 flex flex-col items-center  justify-center">
+                    <p class="date"></p>
+                    <img class="weather-icon" alt="weather-icon">
+                    <p class="temp"></p>
+                    <p class="humidity"></p>
+                    <p class="wind"></p>
+                </div>
+                <div data-index="3" class="nextDays max-sm:w-40  backdrop-blur-sm bg-white/10 w-full  p-6 flex flex-col items-center  justify-center">
+                    <p class="date"></p>
+                    <img class="weather-icon" alt="weather-icon">
+                    <p class="temp"></p>
+                    <p class="humidity"></p>
+                    <p class="wind"></p>
+                </div>
+                <div data-index="4" class="nextDays  max-sm:w-40  backdrop-blur-sm bg-white/10 w-full  p-6 flex flex-col items-center  justify-center">
+                    <p class="date"></p>
+                    <img class="weather-icon" alt="weather-icon">
+                    <p class="temp"></p>
+                    <p class="humidity"></p>
+                    <p class="wind"></p>
+                </div>
+                <div data-index="5" class="nextDays  max-sm:w-40  backdrop-blur-sm bg-white/10 w-full rounded-br-xl  p-6 flex flex-col items-center  justify-center">
+                    <p class="date"></p>
+                    <img class="weather-icon" alt="weather-icon">
+                    <p class="temp"></p>
+                    <p class="humidity"></p>
+                    <p class="wind"></p>
+                </div>
+            </section>
+        </article>
+    </main>
+    <footer class="footer max-sm:text-xs w-full h-20 rounded-t-full bg-headerbg min-[1280px]:mt-28 min-[1280px]:h-24 p-3 flex align-middle items-center text-sm justify-center">
+        <p class="text-white">© [2024] weather 4cast. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>
