@@ -18,7 +18,7 @@ The Weather 4cast web application is designed to provide users with accurate and
 
 #### Technologies Utilized:
 - **HTML:** The structure of the web page is defined using HTML, including elements for input fields, buttons, and content display areas.
-- **TailwindCSS:** Cascading Style Sheets (CSS) are employed to style and layout various elements of the web page, enhancing its visual appeal and user experience.
+- **TailwindCSS:** Employed to style and layout various elements of the web page, enhancing its visual appeal and user experience.
 - **JavaScript:** The application logic and interactivity are implemented using JavaScript, enabling dynamic behavior such as fetching weather data, handling user inputs, and updating the UI.
 - **OpenWeatherMap API:** Weather data is retrieved from the OpenWeatherMap API, which provides comprehensive weather information based on location coordinates or city names.
 
