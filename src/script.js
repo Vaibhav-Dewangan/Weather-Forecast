@@ -110,11 +110,6 @@ function displayForecastWeather(data){
     })
 }
 
-const fetchWeather = (location) => {
-    fetchCurrentWeather(location);
-    fetchForecastWeather(location);
-}
-
 //To save recent search data to session Storage and to show in dropdownmenu.
 
 function saveDataToSessionStorage(cityName2, data) {
@@ -145,6 +140,11 @@ function updateRecentCitiesDropdown() {
 }
 
 //Event listeners.
+
+const fetchWeather = (location) => {
+    fetchCurrentWeather(location);
+    fetchForecastWeather(location);
+}
 
 searchBtn.addEventListener('click', () => {
     const location = cityName.value;
