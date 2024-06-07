@@ -24,13 +24,16 @@
         </div>
         </header>
     <main class="flex flex-row max-lg:h-full max-xl:h-full max-lg:flex-col-reverse max-sm:m-7 m-14 mb-40 max-xl:m-14  justify-between max-xl:gap-8 font-sans text-white">
-        <article id="location" class="location  max-sm:mb-10 max-lg:h-fit max-sm:text-sm backdrop-blur-lg bg-white/10 w-96 max-xl:w-80 max-lg:w-full  h-128 p-12 rounded-xl max-lg:justify-center max-lg:flex  align-middle items-center">
+        <article id="location" class="location   max-sm:mb-10 max-lg:h-fit max-sm:text-sm backdrop-blur-lg bg-white/10 w-96 max-xl:w-80 max-lg:w-full  h-128 p-12 rounded-xl max-lg:justify-center max-lg:flex  align-middle items-center">
         <form id="formForInput" class="flex flex-col gap-5 max-lg:w-72 mt-14 max-sm:mt-5 max-lg:mt-5 ">
-            <label for="cityName" class="flex justify-center">Enter City Name</label>
-            <input type="text" placeholder="Eg : London, New York, India" id="cityName" name="location" required class=" text-black hover:scale-105 bg-slate-200 p-3 max-xl:p-2 max-xl:h-10 rounded-full">
-            <button type="button" id="searchBtn" class="max-xl:h-10 p-2 active:scale-95 bg-headerbg rounded-full text-white">Search &nbsp<i class="fa-solid fa-magnifying-glass text-sm"></i></button>
-            <p class="flex justify-center">OR</p>
-            <button type="button" id="autoSearchBtn" class="  max-xl:h-10 p-2 active:scale-95 bg-headerbg rounded-full text-white" >Use current location</button>
+            <label for="cityName" class="flex justify-center text-black">Enter City Name</label>
+            <input type="text" placeholder="Eg : London, New York, India" id="cityName" name="location" required class="text-center  text-black hover:scale-105 bg-slate-200 p-3 max-xl:p-2 max-xl:h-10 rounded-full">
+            <select class=" hidden" name="recentCities" id="recentCities" >
+            </select>
+            <button type="button" id="searchBtn" class="max-xl:h-10 p-2 active:scale-90 bg-headerbg/90 rounded-full text-white ">Search &nbsp<i class="fa-solid fa-magnifying-glass text-sm"></i></button>
+            <p class="flex justify-center ">OR</p>
+            <button type="button" id="autoSearchBtn" class="  max-xl:h-10 p-2 active:scale-90 bg-headerbg/90 rounded-full text-white" >Use current location</button>
+           
         </form>
         </article>
         <article id="weatherForecast" class=" flex flex-col justify-between max-lg:h-fit max-sm:gap-5 max-lg:gap-10  h-128 w-60vw max-lg:w-full max-xl:w-60vw ">
@@ -71,7 +74,7 @@
                     <p class="humidity"></p>
                     <p class="wind"></p>
                 </div>
-                <div data-index="5" class="nextDays  max-sm:w-40  backdrop-blur-sm bg-white/10 w-full rounded-br-xl  p-6 flex flex-col items-center  justify-center">
+                <div data-index="5" class="nextDay5  max-sm:w-40  backdrop-blur-sm bg-white/10 w-full rounded-br-xl  p-6 flex flex-col items-center  justify-center">
                     <p class="date"></p>
                     <img class="weather-icon" alt="weather-icon">
                     <p class="temp"></p>

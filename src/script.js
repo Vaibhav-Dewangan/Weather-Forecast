@@ -19,26 +19,25 @@ const weatherIcon = todaysWeather.querySelector('.weather-icon');
 //Nextdays weather data
 
 const nextDays = document.querySelectorAll('.nextDays');
+const nextDay5 = document.querySelectorAll('.nextDay5');
+
+const recentCitiesDropdown = document.getElementById('recentCities');
 
 //Weather API key
 
 const apiKey = '8fe7a48524528f4907583a6a7017cb9b';
-
-//To save recent search data to local Storage and to show in dropdownmenu.
-
-function saveToLocalStorage (){
-    insertToDropdownMenu();
-}
-function  insertToDropdownMenu (){
-
-}
 
 //Functions to fetch weather data by city name.
 
 function fetchCurrentWeather(location){
         const fetchData = fetch(`https://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&APPID=${apiKey}`)
         .then(response => response.json())
-        .then(data => displayCurrentWeather(data))
+        .then(data => {
+            console.log(data);
+            displayCurrentWeather(data);
+            saveDataToSessionStorage (location ,data);
+
+        })
         .catch(error =>{
             alert(`Error in fetching data : ${error.message}`);
         })
@@ -48,7 +47,11 @@ function fetchCurrentWeather(location){
 function fetchForecastWeather(location){
         const fetchData = fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${location}&units=metric&APPID=${apiKey}`)
         .then(response => response.json())
-        .then(data => displayForecastWeather(data))
+        .then(data =>{
+            console.log(data);
+            displayForecastWeather(data)
+            saveDataToSessionStorage (location ,data);
+        })
         .catch(error =>{
             alert(`Error in fetching data : ${error.message}`);
         })
@@ -88,7 +91,17 @@ function displayCurrentWeather(data){
 }
 function displayForecastWeather(data){
     nextDays.forEach((dayElements, index) =>{
-        const day = data.list[index * 8];
+        const dayIndex = (index +1) * 8;
+        const day = data.list[dayIndex];
+        dayElements.querySelector('.date').textContent = new Date(day.dt_txt).toLocaleDateString();
+        dayElements.querySelector('.weather-icon').src = ` https://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png`;
+        dayElements.querySelector('.temp').textContent = `Temp: ${day.main.temp}°C`;
+        dayElements.querySelector('.humidity').textContent = `Humidity: ${day.main.humidity}%`;
+        dayElements.querySelector('.wind').textContent = `Wind: ${day.wind.speed}m/s`;
+    })
+    nextDay5.forEach((dayElements, index) =>{
+        const dayIndex = (index + 1)*39;
+        const day = data.list[dayIndex];
         dayElements.querySelector('.date').textContent = new Date(day.dt_txt).toLocaleDateString();
         dayElements.querySelector('.weather-icon').src = ` https://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png`;
         dayElements.querySelector('.temp').textContent = `Temp: ${day.main.temp}°C`;
@@ -100,6 +113,35 @@ function displayForecastWeather(data){
 const fetchWeather = (location) => {
     fetchCurrentWeather(location);
     fetchForecastWeather(location);
+}
+
+//To save recent search data to session Storage and to show in dropdownmenu.
+
+function saveDataToSessionStorage(cityName2, data) {
+    cityName2.trim();
+    sessionStorage.setItem(cityName2, JSON.stringify(data));
+    let recentCities = JSON.parse(sessionStorage.getItem('recentCities')) || [];
+    if (!recentCities.includes(cityName2)) {
+        recentCities.push(cityName2);
+        sessionStorage.setItem('recentCities', JSON.stringify(recentCities));
+    }
+    updateRecentCitiesDropdown();
+}
+function updateRecentCitiesDropdown() {
+    let recentCities = JSON.parse(sessionStorage.getItem('recentCities')) || [];
+    const recentCitiesDropdown = document.getElementById('recentCities');
+    console.log(recentCities);
+    if (recentCities.length > 0) {
+        recentCitiesDropdown.classList = 'visible text-black  rounded-xl h-7 p-1 backdrop:blur-sm bg-white/20 text-center text-md';
+        recentCitiesDropdown.style.display = 'block';
+        recentCitiesDropdown.innerHTML = '<option value=""> Recently Searched</option>';
+        recentCities.forEach(city => {
+            recentCitiesDropdown.innerHTML += `<option value="${city}">${city}</option>`;
+        });
+
+    } else {
+        recentCitiesDropdown.style.display = 'none';
+    }
 }
 
 //Event listeners.
@@ -139,6 +181,12 @@ locateMe.addEventListener('click', () => {
         alert('Geolocation is not supported by this browser.');
     }
 });
+
+recentCitiesDropdown.addEventListener('change', function() {
+    const selectedCity = recentCitiesDropdown.value;
+    fetchCurrentWeather(selectedCity);
+    fetchForecastWeather(selectedCity);
+  });
 
 //Function auto run at the time of load.
 (function autoLocateAtStarting(){
