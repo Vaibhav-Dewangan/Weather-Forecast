@@ -39,7 +39,19 @@ function fetchCurrentWeather(location){
 
         })
         .catch(error =>{
-            alert(`Error in fetching data : ${error.message}`);
+            alert(`Enter valid location or check network`);
+            console.log(`Error in fetching data : ${error.message}`);
+            (function autoLocateAtStarting(){
+                if(navigator.geolocation){
+                    navigator.geolocation.getCurrentPosition((position) =>{
+                        const { latitude, longitude } = position.coords;
+                        fetchCurrentWeatherByCoords(latitude, longitude);
+                        fetchForecastWeatherByCoords(latitude, longitude);
+                    })
+                }else{
+                    alert('Geolocation is not supported by this browser.');
+                }
+            })();
         })
     console.log(fetchData);
 
@@ -53,7 +65,7 @@ function fetchForecastWeather(location){
             saveDataToSessionStorage (location ,data);
         })
         .catch(error =>{
-            alert(`Error in fetching data : ${error.message}`);
+            console.log(`Error in fetching data : ${error.message}`);
         })
     console.log(fetchData);
 }
